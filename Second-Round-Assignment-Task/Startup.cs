@@ -34,6 +34,7 @@ namespace Second_Round_Assignment_Task
             services.AddDbContext<EmployeeLeaveContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("EmployeeLeaveDb")));
             services.AddScoped<IEmployeeRepository, EmployeesRepository>();
+            services.AddScoped<ILeaveRepository, LeaveRepository>();
             services.AddScoped<DbContext, EmployeeLeaveContext>();
             services.AddSwaggerGen(c =>
             {

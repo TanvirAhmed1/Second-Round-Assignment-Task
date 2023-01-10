@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Second_Round_Assignment_Task.DataModels;
 
 namespace Second_Round_Assignment_Task.Migrations
 {
     [DbContext(typeof(EmployeeLeaveContext))]
-    partial class EmployeeLeaveContextModelSnapshot : ModelSnapshot
+    [Migration("20230110201046_LeaveTableCreated")]
+    partial class LeaveTableCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

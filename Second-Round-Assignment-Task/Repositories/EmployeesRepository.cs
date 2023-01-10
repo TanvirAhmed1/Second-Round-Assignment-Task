@@ -15,9 +15,9 @@ namespace Second_Round_Assignment_Task.Repositories
             db = (EmployeeLeaveContext)dbContext;
         }
 
-        public Task<Employee> GetByIdAsync(int id)
+        public async Task<Employee> GetByIdAsync(int id)
         {
-            return GetFirstOrDefaultAsync(x => x.Id==id);
+            return await GetFirstOrDefaultAsync(x => x.Id==id);
         }
 
         public async Task<Employee> UpdateEmployeeAsync(int id, Employee entity)

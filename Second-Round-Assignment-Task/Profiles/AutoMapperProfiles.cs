@@ -11,6 +11,8 @@ namespace Second_Round_Assignment_Task.Profiles
             CreateMap<Employee, EmployeeDto>().ReverseMap();
             CreateMap<Employee, EmployeeSearchDto>().ReverseMap();
             CreateMap<Employee, EmployeeSearchPagingDto>().ReverseMap();
+            CreateMap<Leave, LeaveDto>().ReverseMap();
+            CreateMap<Leave, LeaveUpdateDto>().ReverseMap();
         }
     }
 }

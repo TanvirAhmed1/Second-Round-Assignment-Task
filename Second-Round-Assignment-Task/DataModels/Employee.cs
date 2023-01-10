@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Second_Round_Assignment_Task.DataModels
 {
@@ -12,5 +13,6 @@ namespace Second_Round_Assignment_Task.DataModels
         public DateTime JoiningDate { get; set; }
         public string Designation { get; set; }
         public string Department { get; set; }
+        public ICollection<Leave> Leaves { get; set; } 
     }
 }
