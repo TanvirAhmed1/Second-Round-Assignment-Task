@@ -75,5 +75,19 @@ namespace Second_Round_Assignment_Task.Controllers
             return NotFound();
 
         }
+        [HttpPost]
+        [Route("[controller]/Search")]
+        public async Task<IActionResult> SearchEmployeeAsync([FromBody] EmployeeSearchDto request)
+        {
+            var employees = await _employeeRepository.GetByRequest(_mapper.Map<Employee>(request));
+            return Ok(_mapper.Map<List<EmployeeDto>>(employees));
+        }[HttpPost]
+
+        [Route("[controller]/SearchWithPaging")]
+        public async Task<IActionResult> SearchEmployeePagingAsync([FromBody] EmployeeSearchPagingDto request)
+        {
+            var employees = await _employeeRepository.GetByRequestPaging(request.PageSize, request.PageNumber ,_mapper.Map<Employee>(request));
+            return Ok(_mapper.Map<List<EmployeeDto>>(employees));
+        }
     }
 }

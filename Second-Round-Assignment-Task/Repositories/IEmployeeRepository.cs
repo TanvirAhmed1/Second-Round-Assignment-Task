@@ -11,5 +11,7 @@ namespace Second_Round_Assignment_Task.Repositories
     {
         Task<Employee> GetByIdAsync(int id);
         Task<Employee> UpdateEmployeeAsync(int id, Employee entity);
+        Task<ICollection<Employee>> GetByRequest(Employee request);
+        Task<ICollection<Employee>> GetByRequestPaging(int pageSize, int pageNumber, Employee request);
     }
 }

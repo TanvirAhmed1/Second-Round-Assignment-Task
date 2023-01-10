@@ -9,6 +9,8 @@ namespace Second_Round_Assignment_Task.Profiles
         public AutoMapperProfiles()
         {
             CreateMap<Employee, EmployeeDto>().ReverseMap();
+            CreateMap<Employee, EmployeeSearchDto>().ReverseMap();
+            CreateMap<Employee, EmployeeSearchPagingDto>().ReverseMap();
         }
     }
 }
