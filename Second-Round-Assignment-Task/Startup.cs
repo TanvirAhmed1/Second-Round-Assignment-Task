@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Second_Round_Assignment_Task.DataModels;
+using Second_Round_Assignment_Task.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,8 @@ namespace Second_Round_Assignment_Task
             services.AddControllers();
             services.AddDbContext<EmployeeLeaveContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("EmployeeLeaveDb")));
+            services.AddScoped<IEmployeeRepository, EmployeesRepository>();
+            services.AddScoped<DbContext, EmployeeLeaveContext>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Second_Round_Assignment_Task", Version = "v1" });

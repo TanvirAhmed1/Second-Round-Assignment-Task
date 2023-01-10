@@ -1,39 +1,22 @@
-﻿using Second_Round_Assignment_Task.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using Second_Round_Assignment_Task.DataModels;
+using Second_Round_Assignment_Task.Repositories.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Second_Round_Assignment_Task.Repositories
 {
-    public class EmployeesRepository : IEmployeeRepository
+    public class EmployeesRepository : Repository<Employee>, IEmployeeRepository
     {
-        public Task<Employee> AddEmployee(Employee employee)
+        EmployeeLeaveContext db;
+        public EmployeesRepository(DbContext dbContext) : base(dbContext)
         {
-            throw new System.NotImplementedException();
+            db = (EmployeeLeaveContext)dbContext;
         }
 
-        public Task<Employee> DeleteEmployee(int employeeId)
+        public Task<Employee> GetById(int id)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<bool> Exists(int employeeId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Employee> GetEmployeeAsync(int employeeId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<List<Employee>> GetEmployeesAsync()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Employee> UpdateEmployee(int employeeId, Employee employee)
-        {
-            throw new System.NotImplementedException();
+            return GetFirstOrDefaultAsync(x => x.Id==id);
         }
     }
 }
