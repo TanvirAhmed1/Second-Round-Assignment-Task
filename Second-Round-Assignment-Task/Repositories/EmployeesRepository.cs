@@ -11,12 +11,30 @@ namespace Second_Round_Assignment_Task.Repositories
         EmployeeLeaveContext db;
         public EmployeesRepository(DbContext dbContext) : base(dbContext)
         {
-            db = (EmployeeLeaveContext)dbContext;
+            this.db = (EmployeeLeaveContext)dbContext;
         }
 
-        public Task<Employee> GetById(int id)
+        public Task<Employee> GetByIdAsync(int id)
         {
             return GetFirstOrDefaultAsync(x => x.Id==id);
+        }
+
+        public async Task<Employee> UpdateEmployeeAsync(int id, Employee entity)
+        {
+            var existingEmployee = await GetByIdAsync(id);
+            if(existingEmployee != null)
+            {
+                existingEmployee.FirstName = entity.FirstName;
+                existingEmployee.LastName = entity.LastName;
+                existingEmployee.MiddleName = entity.MiddleName;
+                existingEmployee.DateOfBirth = entity.DateOfBirth;
+                existingEmployee.JoiningDate = entity.JoiningDate;
+                existingEmployee.Designation = entity.Designation;
+                existingEmployee.Department = entity.Department;
+                await db.SaveChangesAsync();
+                return existingEmployee;
+            }
+            return null;
         }
     }
 }

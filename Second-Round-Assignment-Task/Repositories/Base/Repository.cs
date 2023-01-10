@@ -28,24 +28,21 @@ namespace Second_Round_Assignment_Task.Repositories.Base
             return employee.Entity;
         }
 
-        public virtual Task<bool> Exists(int id)
+        //public virtual async Task<bool> Exists(int id)
+        //{
+        //    return await Table.AnyAsync(x => x.Id == id);
+        //}
+
+        public virtual async Task<List<T>> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            return await Table.ToListAsync();
         }
 
-        public virtual Task<List<T>> GetAllAsync()
+        public virtual async Task<T> RemoveAsync(T entity)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual Task<T> RemoveAsync(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual Task<T> UpdateAsync(int id, T entity)
-        {
-            throw new System.NotImplementedException();
+            Table.Remove(entity);
+            await _db.SaveChangesAsync();
+            return entity;
         }
 
         public Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate)

@@ -9,6 +9,7 @@ namespace Second_Round_Assignment_Task.Repositories
 {
     public interface IEmployeeRepository : IRepository<Employee>
     {
-        Task<Employee> GetById(int id);
+        Task<Employee> GetByIdAsync(int id);
+        Task<Employee> UpdateEmployeeAsync(int id, Employee entity);
     }
 }

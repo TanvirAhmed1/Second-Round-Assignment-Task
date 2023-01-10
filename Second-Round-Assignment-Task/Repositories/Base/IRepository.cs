@@ -9,10 +9,8 @@ namespace Second_Round_Assignment_Task.Repositories.Base
     public interface IRepository<T> where T: class
     {
         Task<T> AddAsync(T entity);
-        Task<T> UpdateAsync(int id, T entity);
-        Task<T> RemoveAsync(int id);
+        Task<T> RemoveAsync(T entity);
         Task<List<T>> GetAllAsync();
-        Task<bool> Exists(int id);
         Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
     }
 }
