@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Second_Round_Assignment_Task.DataModels;
+using Second_Round_Assignment_Task.DomainModels;
 using Second_Round_Assignment_Task.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,16 +15,18 @@ namespace Second_Round_Assignment_Task.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;
-        public EmployeesController(IEmployeeRepository employeeRepository)
+        private readonly IMapper _mapper;
+        public EmployeesController(IEmployeeRepository employeeRepository, IMapper mapper)
         {
             _employeeRepository = employeeRepository;
+            _mapper = mapper;
         }
         [HttpGet]
         [Route("[controller]")]
         public async Task<IActionResult> GetAllEmployees()
         {
             var employees = await _employeeRepository.GetAllAsync();
-            return Ok(employees);
+            return Ok(_mapper.Map<List<EmployeeDto>>(employees));
         }
         [HttpGet]
         [Route("[controller]/{employeeId:int}"), ActionName("GetEmployeeAsync")]
@@ -33,15 +37,14 @@ namespace Second_Round_Assignment_Task.Controllers
             {
                 return NotFound();
             }
-            return Ok(employee);
+            return Ok(_mapper.Map<EmployeeDto>(employee));
         }
         [HttpPost]
         [Route("[controller]/Add")]
-        public async Task<IActionResult> AddEmployeeAsync([FromBody] Employee request)
+        public async Task<IActionResult> AddEmployeeAsync([FromBody] EmployeeDto request)
         {
-            var student = await _employeeRepository.AddAsync(request);
-            //return CreatedAtAction(nameof(GetStudentAsync), new { studentId = student.Id }, mapper.Map<StudentDto>(student));
-            return Ok();
+            var employee = await _employeeRepository.AddAsync(_mapper.Map<Employee>(request));
+            return CreatedAtAction(nameof(GetEmployeeAsync), new { employeeId = employee.Id }, employee);
         }
         [HttpDelete]
         [Route("[controller]/{employeeId:int}")]
@@ -51,21 +54,21 @@ namespace Second_Round_Assignment_Task.Controllers
             if (employee != null)
             {   
                 await _employeeRepository.RemoveAsync(employee);
-                return Ok(employee);
+                return Ok(_mapper.Map<EmployeeDto>(employee));
             }
             return NotFound();
         }
         [HttpPut]
         [Route("[controller]/{employeeId:int}")]
-        public async Task<IActionResult> UpdateStudentAsync([FromRoute] int employeeId, [FromBody] Employee request)
+        public async Task<IActionResult> UpdateStudentAsync([FromRoute] int employeeId, [FromBody] EmployeeDto request)
         {
             var employee = await _employeeRepository.GetByIdAsync(employeeId);
             if (employee!=null)
             {
-                var updatedEmployee = await _employeeRepository.UpdateEmployeeAsync(employeeId, request);
+                var updatedEmployee = await _employeeRepository.UpdateEmployeeAsync(employeeId, _mapper.Map<Employee>(request));
                 if (updatedEmployee != null)
                 {
-                    return Ok(updatedEmployee);
+                    return Ok(_mapper.Map<EmployeeDto>(updatedEmployee));
                 }
             }
 
