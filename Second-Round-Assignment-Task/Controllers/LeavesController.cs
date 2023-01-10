@@ -28,7 +28,7 @@ namespace Second_Round_Assignment_Task.Controllers
         }
         [HttpGet]
         [Route("[controller]/EmployeeWiseLeave/{employeeId:int}")]
-        public async Task<IActionResult> GetByEmployeeLeaves([FromRoute] int employeeId)
+        public IActionResult GetByEmployeeLeaves([FromRoute] int employeeId)
         {
             var leaves = _leaveRepository.GetByEmployeeAsync(employeeId);
             return Ok(_mapper.Map<List<LeaveDto>>(leaves));
